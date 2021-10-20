@@ -1,42 +1,36 @@
-void drawLab(){}
-void keyPressLabyrinth(){
-  if(key == 'w'){
+void keyPressLabyrinth() {
+  if (key == 'w') {
     // 0
     nextMove = 0;
-  }
-  else if(key == 'a'){
+  } else if (key == 'a') {
     // 1
     nextMove = 1;
-  }
-  else if(key == 's'){
+  } else if (key == 's') {
     // 2
     nextMove = 2;
-  }
-  else if(key == 'd'){
+  } else if (key == 'd') {
     // 3
     nextMove = 3;
-  }
-  else if(key == 'z'){
+  } else if (key == 'z') {
     showSol = true;
-  }
-  else if(key == 'h'){
+  } else if (key == 'h') {
     showedSol = false;
     showSol = false;
     curX = 0;
     curY = 0;
   }
 }
-void clickLab(){}
+void clickLab() {
+}
 
-void drawLabyrinth(){
-  if(showSol){
-    if(curX == columnCount-1 && curY == rowCount-1){
+void drawLabyrinth() {
+  if (showSol) {
+    if (curX == columnCount-1 && curY == rowCount-1) {
       showedSol = true;
       showSol = false;
       curX = 0;
       curY = 0;
-    }
-    else{
+    } else {
       nextX = curX + moveX[prev[curY][curX]];
       nextY = curY + moveY[prev[curY][curX]];
       strokeWeight(gridSize*0.05);
@@ -47,15 +41,13 @@ void drawLabyrinth(){
       delay(showSpeed);
     }
     nextMove = -1;
-  }
-  else{
+  } else {
     drawMaze();
-    if(nextMove != -1 && ((1<<nextMove) & isWall[playerY][playerX]) == 0){
+    if (nextMove != -1 && ((1<<nextMove) & isWall[playerY][playerX]) == 0) {
       playerX += moveX[nextMove];
       playerY += moveY[nextMove];
       nextMove = -1;
-    }
-    else{
+    } else {
       nextMove = -1;
     }
     drawPlayer(playerY, playerX);
@@ -70,7 +62,7 @@ void drawMaze() {
   fill(#FF1A00);
   noStroke();
   rect((columnCount-1)*gridSize, (rowCount-1)*gridSize, gridSize, gridSize);
-      
+
   stroke(0);
   strokeWeight(defaultStroke);
   for (int i = 0; i < rowCount; i++) {
@@ -93,11 +85,11 @@ void drawMaze() {
       }
     }
   }
-  
-  if(showedSol){
+
+  if (showedSol) {
     curX = 0;
     curY = 0;
-    while(curX != columnCount-1 || curY != rowCount-1){
+    while (curX != columnCount-1 || curY != rowCount-1) {
       nextX = curX + moveX[prev[curY][curX]];
       nextY = curY + moveY[prev[curY][curX]];
       strokeWeight(gridSize*0.05);

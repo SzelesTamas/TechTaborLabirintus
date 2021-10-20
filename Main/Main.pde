@@ -1,31 +1,43 @@
 import java.util.Stack;
 
 
-int gridSize=50;
-int rowCount = 10;
-int columnCount = 10;
-// up, left, down, right
+//changeable variables
+int gridSize=200;
+int rowCount = 3;
+int columnCount = 3;
+int showSpeed = 1;
+
+
+//DO NOT CHANGE -- DO NOT CHANGE -- DO NOT CHANGE -- DO NOT CHANGE -- DO NOT CHANGE
+//Movement: up, left, down, right
 int[] moveX = {0, -1, 0, 1};
 int[] moveY = {-1, 0, 1, 0};
-int showSpeed = 10;
-float playerSize = 0.5;
-int defaultStroke = 4;
-int winSize = 72;
-PFont winFont;
 
+//Player:
+float playerSize = 0.6;
+int playerX = 0;
+int playerY = 0;
+
+//LabyrinthMazeThing:
+int defaultStroke = 4;
 int[][] isWall;
 boolean[][] visited;
 int[][] prev;
-boolean showSol;
-boolean showedSol;
 int curX = 0;
 int curY = 0;
 int nextX = 0;
 int nextY = 0;
 IntList randDirection;
+
+//VictoryScreen:
+int winSize = 72;
+PFont winFont;
+
+boolean showSol;
+boolean showedSol;
+
 int nextMove = -1;
-int playerX = 0;
-int playerY = 0;
+
 
 GameState gameState = GameState.MainMenu;
 
@@ -54,7 +66,7 @@ void setup() {
   playerX = 0;
   playerY = 0;
   winFont = createFont("Arial", winSize, false);
-  
+
   for (int i = 0; i < rowCount; i++) {
     for (int j = 0; j < columnCount; j++) {
 
@@ -66,30 +78,33 @@ void setup() {
   }
 
   generate(rowCount-1, columnCount-1);
+
+  //init scenes
+  initMainMenu();
 }
 
-void draw(){
-  if(playerX == columnCount-1 && playerY == rowCount-1){
+void draw() {
+  if (playerX == columnCount-1 && playerY == rowCount-1) {
     gameState = GameState.VictoryScreen;
   }
-  switch(gameState){
-    case MainMenu:
-      drawMainMenu();
-      break;
-    case Labyrinth:
-      drawLabyrinth();
-      break;
-    case VictoryScreen:
-      drawVictoryScreen();
-      break;
-    default:
-      drawMainMenu();
-      break;
+  switch(gameState) {
+  case MainMenu:
+    drawMainMenu();
+    break;
+  case Labyrinth:
+    drawLabyrinth();
+    break;
+  case VictoryScreen:
+    drawVictoryScreen();
+    break;
+  default:
+    drawMainMenu();
+    break;
   }
 }
 
-void keyPressed(){
-  switch(gameState){
+void keyPressed() {
+  switch(gameState) {
     case MainMenu:
       keyPressedMainMenu();
       break;
@@ -100,5 +115,19 @@ void keyPressed(){
       break;
     default:
       break;
-  } 
+  }
+}
+
+void mousePressed() {
+  switch(gameState) {
+  case MainMenu:
+    mousePressedMainMenu();
+    break;
+  case Labyrinth:
+    break;
+  case VictoryScreen:
+    break;
+  default:
+    break;
+  }
 }
