@@ -124,3 +124,6 @@ void generate(int row, int column) {
     generate(newRow, newColumn);
   }
 }
+
+//TODO: clear function (for new labyrinth generation)
+//TODO: victoryscreen play again thing -> main menu
