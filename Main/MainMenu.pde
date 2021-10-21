@@ -1,5 +1,6 @@
 private ScreenObject btn;
 private TextInputField tfield;
+private String txt;
 void drawMainMenu() {
   background(255, 255, 255);
   textFont(winFont, winSize);
@@ -26,8 +27,10 @@ void mousePressedMainMenu() {
 }
 
 void initMainMenu() {
+  surface.setSize(800,550);
+  surface.setLocation(displayWidth / 2 - width/2, displayHeight/2 - height/2);
   btn = new ScreenObject(width/2-50, height/2-50, 100, 100);
-  tfield = new TextInputField(width/2-50, height/2+80, 120, 50);
+  tfield = new TextInputField(width/2-50, height/2+80, 100, 50);
   btn.setDrawFunc(new Runnable() {
     @Override
       public void run() {
@@ -42,6 +45,23 @@ void initMainMenu() {
   btn.setOnClickFunc(new Runnable() {
     @Override
       public void run() {
+      
+      txt = tfield.getText();
+      int s;
+      if(txt == null ||txt == ""){
+        s = 3;
+      }else{
+        s = int(txt);
+      }
+      
+      rowCount = s;
+      columnCount = s;
+      generateMazeData();
+      generate(rowCount-1,columnCount-1);
+      surface.setSize(rowCount*gridSize,columnCount*gridSize);
+      surface.setLocation(displayWidth / 2 - width/2, 20);
+      //surface.setSize(800,800);
+      
       gameState = GameState.Labyrinth;
     }
   }

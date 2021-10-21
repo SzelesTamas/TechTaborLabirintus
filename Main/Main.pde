@@ -2,7 +2,7 @@ import java.util.Stack;
 
 
 //changeable variables
-int gridSize=200;
+int gridSize=100;
 int rowCount = 3;
 int columnCount = 3;
 int showSpeed = 1;
@@ -28,6 +28,7 @@ int curY = 0;
 int nextX = 0;
 int nextY = 0;
 IntList randDirection;
+int mazeScreenW, mazeScreenH;
 
 //VictoryScreen:
 int winSize = 72;
@@ -42,56 +43,32 @@ int nextMove = -1;
 GameState gameState = GameState.MainMenu;
 
 void settings() {
-  int id1 = gridSize*columnCount;
-  int id2 = gridSize*rowCount;
-  size(id1, id2);
+  size(800, 550);
 }
 
 void setup() {
-  isWall = new int[rowCount][columnCount];
-  visited = new boolean[rowCount][columnCount];
-  prev = new int[rowCount][columnCount];
-  randDirection = new IntList();
-  randDirection.append(0);
-  randDirection.append(1);
-  randDirection.append(2);
-  randDirection.append(3);
-  showSol = false;
-  showedSol = false;
-  curX = 0;
-  curY = 0;
-  nextX = 0;
-  nextY = 0;
-  nextMove = -1;
-  playerX = 0;
-  playerY = 0;
+  surface.setLocation(displayWidth / 2 - width/2, displayHeight/2 - height/2);
+  gameState = GameState.MainMenu;
   winFont = createFont("Arial", winSize, false);
+  //generateMazeData();
 
-  for (int i = 0; i < rowCount; i++) {
-    for (int j = 0; j < columnCount; j++) {
-
-      visited[i][j] = false;
-      isWall[i][j] = 15;
-      prev[i][j] = -1;
-    }
-    gameState = GameState.MainMenu;
-  }
-
-  generate(rowCount-1, columnCount-1);
+  //generate(rowCount-1, columnCount-1);
 
   //init scenes
   initMainMenu();
+  initVictoryScreen();
 }
 
 void draw() {
-  if (playerX == columnCount-1 && playerY == rowCount-1) {
-    gameState = GameState.VictoryScreen;
-  }
   switch(gameState) {
   case MainMenu:
     drawMainMenu();
     break;
   case Labyrinth:
+    if (playerX == columnCount-1 && playerY == rowCount-1) {
+      initVictoryScreen();
+      gameState = GameState.VictoryScreen;
+    }
     drawLabyrinth();
     break;
   case VictoryScreen:
@@ -126,6 +103,7 @@ void mousePressed() {
   case Labyrinth:
     break;
   case VictoryScreen:
+    mousePressedVictoryScreen();
     break;
   default:
     break;

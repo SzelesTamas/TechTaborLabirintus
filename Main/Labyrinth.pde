@@ -125,5 +125,53 @@ void generate(int row, int column) {
   }
 }
 
-//TODO: clear function (for new labyrinth generation)
-//TODO: victoryscreen play again thing -> main menu
+void generateMazeData(){
+  isWall = new int[rowCount][columnCount];
+  visited = new boolean[rowCount][columnCount];
+  prev = new int[rowCount][columnCount];
+  randDirection = new IntList();
+  randDirection.append(0);
+  randDirection.append(1);
+  randDirection.append(2);
+  randDirection.append(3);
+  showSol = false;
+  showedSol = false;
+  curX = 0;
+  curY = 0;
+  nextX = 0;
+  nextY = 0;
+  nextMove = -1;
+  playerX = 0;
+  playerY = 0;
+
+  for (int i = 0; i < rowCount; i++) {
+    for (int j = 0; j < columnCount; j++) {
+
+      visited[i][j] = false;
+      isWall[i][j] = 15;
+      prev[i][j] = -1;
+    }
+  }
+  gridSizeFinder();
+  mazeScreenW = gridSize*columnCount;
+  mazeScreenH = gridSize*rowCount;
+}
+
+void gridSizeFinder(){
+  boolean check = false;
+  /*if (gridSize*columnCount >= 1000){
+    gridSize -= 3;
+    check = true;
+  }
+  if (gridSize*rowCount >= 1000){
+    gridSize -= 3;
+    check = true;
+  }*/
+  gridSize = 900/ max(columnCount, rowCount);
+  if(check){
+    gridSizeFinder();
+  }
+}
+
+//TODO: clear function (for new labyrinth generation) DONE
+//TODO: victoryscreen play again thing -> main menu DONE
