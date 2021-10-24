@@ -30,7 +30,7 @@ void initMainMenu() {
   surface.setSize(800,550);
   surface.setLocation(displayWidth / 2 - width/2, displayHeight/2 - height/2);
   btn = new ScreenObject(width/2-50, height/2-50, 100, 100);
-  tfield = new TextInputField(width/2-50, height/2+80, 100, 50);
+  tfield = new TextInputField(width/2-50, height/2+80, 100, 50, TextInputFilter.Numbers);
   btn.setDrawFunc(new Runnable() {
     @Override
       public void run() {
